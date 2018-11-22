@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index.ejs', {title: 'Informer'});
+    res.render('index.ejs', {title: "Informing"});
     let db = new sqlite3.Database('app.db', error => {
         if (error)
         {

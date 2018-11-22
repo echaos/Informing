@@ -1,0 +1,119 @@
+body {
+    position: relative;
+    background-color: #EBEFF5;
+}
+
+
+.m_nav {
+    background-color: white;
+
+}
+
+.slide_container {
+    width: 100%;
+    position: relative;
+}
+
+.slices {
+    text-align: center;
+}
+
+.slice {
+    display: none;
+    transition: 0.4s;
+}
+
+.slice_image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    vertical-align: middle;
+    horiz-align: center;
+    transition: 0.4s;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+}
+
+.slice .slice_text {
+    visibility: hidden;
+}
+
+.slice:hover .slice_image {
+    opacity: .1;
+}
+
+.slice:hover .slice_text {
+    visibility: visible;
+}
+
+.slice_text {
+    color: #9b9b9b;
+    font-size: 15px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 100px;
+}
+
+.prev_button, .next_button {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.5s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev_button:hover, .next_button:hover
+{
+    background-color: rgba(0,0,0, 0.8);
+}
+
+.next_button {
+    right: 15px;
+    border-radius: 3px 0 0 3px;
+}
+
+.content_container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.well_container {
+    background-color: white;
+    margin-top: 20px;
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: 800px;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+}
+
+.notification_buttons {
+    margin-bottom: 10px;
+}
+
+.m_input {
+}
+
+.list {
+    padding-top: 10px;
+}
+
+.footer_text {
+    margin-top: 20px;
+    color: #8c8c8c;
+}
+
+.footer {
+    background-color: #f8f8f8;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+}

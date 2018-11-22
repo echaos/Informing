@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="site_title"><%= title%></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/index.css"/>
+    <script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default m_nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Informer</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Media <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Files</a></li>
+                            <li><a href="#">Images</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Login<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a>Settings</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="slide_container container">
+        <div class="slices">
+            <div class="slice" id="fade1">
+                <img src="/images/lake-irene-1679708_1920-e1520033192433.jpg" class="slice_image"/>
+                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.1</p>
+            </div>
+            <div class="slice fading" id="fade2">
+                <img src="/images/landscape-photography-02.jpg" class="slice_image"/>
+                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.2</p>
+            </div>
+            <div class="slice fading" id="fade3">
+                <img src="/images/photo-1532274402911-5a369e4c4bb5.jpg" class="slice_image"/>
+                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.3</p>
+            </div>
+        </div>
+        <a class="prev_button" onclick="nextSlice(-1)">&#10094;</a>
+        <a class="next_button" onclick="nextSlice(1)">&#10095;</a>
+    </div>
+
+
+    <div class="content_container">
+    <div class="well well-lg well_container ">
+        <div class="notification_buttons">
+            <button class="btn btn-primary" type="button">All messages <span class="badge">0</span></button>
+            <button class="btn btn-danger" type="button">Deadlines <span class="badge">0</span></button>
+            <button class="btn btn-warning" type="button">Events <span class="badge">0</span></button>
+        </div>
+        <div class="input-group m_input">
+            <span class="input-group-addon">Search:</span>
+            <input type="text" class="form-control" placeholder="Keyword">
+        </div>
+        <div class="list-group list">
+            <button type="button" class="list-group-item">Placeholder 1</button>
+            <button type="button" class="list-group-item">Placeholder 1</button>
+            <button type="button" class="list-group-item">Placeholder 1</button>
+            <button type="button" class="list-group-item">Placeholder 1</button>
+            <button type="button" class="list-group-item">Placeholder 1</button>
+        </div>
+    </div>
+    </div>
+
+    <div class="container container-fluid footer">
+        <p class="footer_text">;) Informer is an open-source node project </p>
+    </div>
+
+    <script type="text/javascript" src="/javascripts/index.js"></script>
+</body>
+</html>

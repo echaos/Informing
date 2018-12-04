@@ -2,6 +2,10 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
 
+function after_db() {
+
+}
+
 /* GET home page. */
 router.get('/', function (req, res) {
     let login = true;
@@ -20,6 +24,10 @@ router.get('/', function (req, res) {
         }
 
         rows.forEach(row => {
+            if (row["in_use"] === 1)
+            {
+                global.site_name = row["site_name"]
+            }
         })
     });
 
@@ -42,7 +50,7 @@ router.get('/', function (req, res) {
         res.cookie('login', 'true', {maxAge: 9000000});
     }
 
-    res.render('index.ejs', {title: "Informing", login: login, username: username});
+    res.render('index.ejs', {title: global.site_name, login: login, username: username});
 });
 
 router.post('/', (req, res) => {

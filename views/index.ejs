@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Informing</a>
+                <a class="navbar-brand" href="/">Informing</a>
             </div>
 
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
@@ -40,15 +40,25 @@
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
+
+
+
+                <form method="POST">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Login<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a>Settings</a></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
+                    <% if (!login || login === "false") { %>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Hello <%= username %><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><button class="btn btn-link" type="submit" name="setting" value="true">Setting</button>
+                                <li><button class="btn btn-link" type="submit" name="logout" value="true">Logout</button></li>
+                            </ul>
+                        </li>
+                    <% } else { %>
+                            <li><a href="/login">Login</a></li>
+                    <% }%>
                 </ul>
+                </form>
+                <a href="/new" class="navbar-right navbar-nav">New</a>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>

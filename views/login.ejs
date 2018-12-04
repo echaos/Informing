@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="site_title">login</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/stylesheets/index.css"/>
+    <script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default m_nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Informing</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Media <span
+                                class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Files</a></li>
+                        <li><a href="#">Images</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="content_container">
+    <div class="well well-lg well_container_2 ">
+        <h1>Please Login</h1>
+        <% if (login_failed === "true") { %>
+            <div class="alert alert-danger">Incorrect Account Name or Password!</div>
+        <% } %>
+        <form method="POST">
+            <div class="input-group input-group-lg notification_buttons">
+                <span class="input-group-addon" id="sizing-addon1">Username</span>
+                <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">Password  </span>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+
+            <button type="submit" class="btn btn-default btn-lg submit_buttons pull-right">Login</button>
+        </form>
+    </div>
+</div>
+
+</body>

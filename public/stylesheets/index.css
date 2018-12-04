@@ -94,8 +94,22 @@ body {
     box-shadow: 0 0 15px rgba(0,0,0, 0.2);
 }
 
+.well_container_2 {
+    background-color: white;
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: 500px;
+    display: inline-block;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+}
+
 .notification_buttons {
     margin-bottom: 10px;
+}
+
+.submit_buttons {
+    margin-top: 10px;
 }
 
 .m_input {
@@ -117,3 +131,4 @@ body {
     text-align: center;
     box-shadow: 0 0 15px rgba(0,0,0, 0.2);
 }
+

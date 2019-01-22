@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-    res.render('login.ejs', {login_failed:req.cookies["login_failed"]});
+    res.render('operation.ejs', {operation: "login", login_failed: req.cookies["login_failed"]});
     res.end();
 });
 
@@ -12,34 +12,36 @@ router.post('/', (req, res) => {
 
     var login_status = -1;
 
-    let db = new sqlite3.Database('db.sqlite3', error => {
-        if (error) {return console.error(error.message);}
+    let db = new sqlite3.Database('app.db', error => {
+        if (error) {
+            return console.error(error.message);
+        }
     });
 
-    let sql = "SELECT id, username, password FROM users;";
+    let sql = "SELECT user_name, user_password FROM users;";
     db.all(sql, [], (error, rows) => {
-        if (error) {throw error;}
+        if (error) {
+            throw error;
+        }
 
         rows.forEach(row => {
-            if (row.username === req.body.username && row.password === req.body.password)
-            {
+            if (row.user_name === req.body.username && row.user_password === req.body.password) {
                 res.cookie("login", "false", {maxAge: 9000000});
                 res.cookie("username", row.username, {maxAge: 9000000});
                 res.cookie("login_failed", "false", {maxAge: 9000000});
                 res.redirect("/");
-            }
-            else
-            {
+            } else {
                 res.cookie("login_failed", "true", {maxAge: 1800});
                 res.redirect("/login");
             }
         })
     });
 
-    console.log(login_status);
-    db.close(error => {if (error) {return console.error(error.message);}});
-
-
+    db.close(error => {
+        if (error) {
+            return console.error(error.message);
+        }
+    });
 
 });
 

@@ -7,7 +7,9 @@ const createError = require("http-errors");
 
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
-const newRounter  = require('./routes/new');
+const newRouter  = require('./routes/new');
+const settingsRouter = require('./routes/settings');
+
 
 const app = express();
 
@@ -25,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-app.use('/new', newRounter);
+app.use('/new', newRouter);
+app.use('/settings',settingsRouter);
 
 module.exports = app;

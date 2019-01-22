@@ -45,7 +45,7 @@
 
                 <form method="POST">
                 <ul class="nav navbar-nav navbar-right">
-                    <% if (!login || login === "false") { %>
+                    <% if (have_login || have_login === "true") { %>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Hello <%= username %><span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -97,17 +97,15 @@
             <input type="text" class="form-control" placeholder="Keyword">
         </div>
         <div class="list-group list">
-            <button type="button" class="list-group-item">Placeholder 1</button>
-            <button type="button" class="list-group-item">Placeholder 1</button>
-            <button type="button" class="list-group-item">Placeholder 1</button>
-            <button type="button" class="list-group-item">Placeholder 1</button>
-            <button type="button" class="list-group-item">Placeholder 1</button>
+            <% post_list.forEach(function (post) { %>
+            <button type="button" class="list-group-item"><%=post.title%></button>
+            <%});%>
         </div>
     </div>
     </div>
 
     <div class="container container-fluid footer">
-        <p class="footer_text">;) Informing is an open-source node project </p>
+        <p class="footer_text">;) Informing is an open-source nodejs project </p>
     </div>
 
     <script type="text/javascript" src="/javascripts/index.js"></script>

@@ -4,8 +4,8 @@ const sqlite3 = require('sqlite3').verbose();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-    res.render('operation.ejs', {operation: "login", login_failed: req.cookies["login_failed"]});
-    res.end();
+    console.log(req.cookies["login_failed"]);
+    res.render('index.ejs', {action: "login", login_failed: req.cookies["login_failed"], title:"Yes", have_login:false, username:"Guest"},);
 });
 
 router.post('/', (req, res) => {

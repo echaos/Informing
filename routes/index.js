@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const initMiddleware = require("../middleware/initialize");
 
-/* GET home page. */
-router.get('/', initMiddleware.initialize,  function (req, res, next) {
+const PRIORITY_NAME = ["Normal", "Events", "Deadlines"];
+const PRIORITY_CLASS = ["label-primary", "label-info", "label-danger"];
+
+router.get('/', initMiddleware.initialize, function (req, res, next) {
 
     console.log(res.locals);
     if (res.locals.first_time) {
@@ -53,8 +55,24 @@ router.get('/', initMiddleware.initialize,  function (req, res, next) {
     //     res.cookie('login', 'true', {maxAge: 9000000});
     // }
     */
+
+    let event_n = res.locals.post_list.filter(post => post.priority === 1).length;
+    let deadline_n = res.locals.post_list.filter(post => post.priority === 2).length;
+    let all_n = res.locals.post_list.length;
+
     res.locals.db.close();
-    res.render('index.ejs', {title: res.locals.app_name, have_login: "true", username: "Yes", post_list: res.locals.post_list});
+    res.render('index.ejs', {
+        action: "homepage",
+        title: res.locals.app_name,
+        have_login: "true",
+        username: "Yes",
+        post_list: res.locals.post_list,
+        all_n: all_n,
+        event_n: event_n,
+        deadline_n: deadline_n,
+        PRIORITY_NAME:PRIORITY_NAME,
+        PRIORITY_CLASS:PRIORITY_CLASS,
+    });
 });
 
 router.post('/', (req, res) => {

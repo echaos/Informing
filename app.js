@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const newRouter  = require('./routes/new');
 const settingsRouter = require('./routes/settings');
+const postRouter = require('./routes/post');
 
 
 const app = express();
@@ -29,5 +30,6 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/new', newRouter);
 app.use('/settings',settingsRouter);
+app.use(postRouter);
 
 module.exports = app;

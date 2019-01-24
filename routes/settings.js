@@ -5,11 +5,11 @@ const basicDB = require('../middleware/basicDB');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-    res.render('settings.ejs', {title: "Informing", login: false, username: "Hello"});
+    res.render('index.ejs', {action:"settings", title: "Informing", have_login: true, username: "Hello"});
 });
 
 router.post('/', basicDB, (req, res) => {
-    res.render('settings.ejs', {title: "Informing", login: false, username: "Yes"});
+    res.render('index.ejs', {action:"settings", title: "Informing", have_login: true, username: "Yes"});
 });
 
 module.exports = router;

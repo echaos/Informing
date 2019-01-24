@@ -41,14 +41,13 @@ function getPosts(res) {
         } else {
             res.locals.db.all("select post_id, post_title, post_priority from posts", [], (err, rows) => {
 
-                if(err)
-                {
+                if (err) {
                     resolve(false);
                 }
 
                 let post_list = [];
-                rows.forEach((row)=>{
-                    post_list.push({id:row.post_id, title:row.post_title, priority:row.post_priority });
+                rows.forEach((row) => {
+                    post_list.push({id: row.post_id, title: row.post_title, priority: row.post_priority});
                 });
                 res.locals.post_list = post_list;
                 resolve(true)
@@ -76,11 +75,24 @@ function createOrOpenDB(res) {
     })
 }
 
+function getPost(res) {
+    return new Promise((resolve => {
+
+        res.locals.db.all("select post_id, post_title, post_priority from posts where post_id="+req.params, [], (err, rows) => {
+
+            if (err) {
+                resolve(false);
+            }
+
+        });
+    }))
+}
+
 function initialize(req, res, next) {
     createOrOpenDB(res).then(() => {
         verifyDB(res).then(() => {
             extractAppSettings(res).then(() => {
-                getPosts(res).then(()=>{
+                getPosts(res).then(() => {
                     next();
                 })
             });
@@ -88,9 +100,11 @@ function initialize(req, res, next) {
     });
 }
 
+
 module.exports = {
     initialize: initialize,
     createOrOpenDB: createOrOpenDB,
     verifyDB: verifyDB,
     extractAppSettings: extractAppSettings,
+
 };

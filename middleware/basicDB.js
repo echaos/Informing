@@ -1,4 +1,3 @@
-// const sqlite = require("sqlite3");
 const init = require("../middleware/initialize");
 
 function createAppSettingTable(req, res) {
@@ -26,7 +25,7 @@ function createAppSettingTable(req, res) {
     })
 }
 
-function initializeDB(req, res, next) {
+function serialization(req, res, next) {
     init.createOrOpenDB(res).then(() => {
         console.log("Created Or Opened");
         init.verifyDB(res).then(() => {
@@ -42,4 +41,4 @@ function initializeDB(req, res, next) {
     })
 }
 
-module.exports = initializeDB;
+module.exports = serialization;

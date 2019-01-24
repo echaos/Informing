@@ -51,15 +51,14 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            <!--<form class="navbar-form navbar-left">-->
+                <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" placeholder="Search">-->
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-default">Submit</button>-->
+            <!--</form>-->
 
 
-            <form method="POST">
                 <ul class="nav navbar-nav navbar-right">
                     <% if (have_login) { %>
                         <li class="dropdown">
@@ -79,7 +78,6 @@
                         <li><a href="/login">Login</a></li>
                     <% } %>
                 </ul>
-            </form>
             <form class="navbar-form navbar-right" action="/new">
                 <button type="submit" class="btn btn-default">New</button>
             </form>
@@ -126,14 +124,15 @@
                     </button>
                 <% } %>
             </div>
-            <div class="input-group m_input">
-                <span class="input-group-addon">Search:</span>
-                <input type="text" class="form-control" placeholder="Keyword">
-            </div>
+            <!--<div class="input-group m_input">-->
+                <!--<span class="input-group-addon">Search:</span>-->
+                <!--<input type="text" class="form-control" placeholder="Keyword">-->
+            <!--</div>-->
+            <hr>
             <div class="list-group list">
                 <% post_list.forEach(function (post) { %>
                     <button type="button" class="list-group-item">
-                        <span class="label <%= PRIORITY_CLASS[post.priority] %>"><%= PRIORITY_NAME[post.priority] %></span> <%= post.title %>
+                        <span class="label <%= PRIORITY_CLASS[post.post_priority] %>"><%= PRIORITY_NAME[post.post_priority] %></span> <%= post.post_title %>
                     </button>
                 <% }); %>
             </div>
@@ -199,11 +198,43 @@
 <% } %>
 
 <% if (action === "post") { %>
-    <div class="content_container">
-        <div class="well well-lg well_container_2 ">
-            <h1><%=post.title%></h1>
-            <%=post.content%>
+<div class="content_container">
+    <div class="well well-lg well_container_2 ">
+        <h1 class="page-header"><%= post.post_title %></h1>
+        <%= post.post_content %>
 
+    </div>
+</div>
+<% } %>
+
+<% if (action === "post") { %>
+    <div class="content_container">
+        <div class="well well-lg well_container_4">
+            <form class="form-group">
+
+                <input type="hidden" value="<%=post_action%>" name="post_action">
+
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" name="content" id="title" placeholder="" required>
+                <br>
+                <label for="content">Content:</label>
+                <textarea class="form-control" rows="20" name="content" id="content" placeholder="Insert your text here." required></textarea>
+
+                <br>
+
+                <label for="type">Select post type:</label>
+                <select class="form-control" id="type" name="post_priority">
+                    <option>Normal</option>
+                    <option>Events</option>
+                    <option>Deadlines</option>
+                </select>
+
+                <hr>
+
+                <div class="input-group">
+                    <button type="submit" class="btn btn-default">Confirm</button>
+                </div>
+            </form>
         </div>
     </div>
 <% } %>

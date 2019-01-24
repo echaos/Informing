@@ -4,8 +4,12 @@ const sqlite3 = require('sqlite3').verbose();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
-    res.render('new.ejs', {title:"Informing", login:false, username:"Hello"});
+    res.render('index.ejs', {action: "post", post_action:"new", title:"Informing", have_login:true, username:"Hello"});
     res.end();
+});
+
+router.post('/', (req, res) => {
+
 });
 
 module.exports = router;

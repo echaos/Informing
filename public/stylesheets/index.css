@@ -112,6 +112,13 @@ body {
     box-shadow: 0 0 15px rgba(0,0,0, 0.2);
 }
 
+.well_container_4 {
+    background-color: white;
+    width: auto;
+    min-height: 500px;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.2);
+}
+
 .notification_buttons {
     margin-bottom: 10px;
 }

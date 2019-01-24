@@ -4,13 +4,16 @@ const sqlite3 = require('sqlite3').verbose();
 
 /* GET users listing. */
 router.get('/', (req, res) => {
+
+    if (res.locals.first_time) {
+        return res.redirect("/settings");
+    }
+
     console.log(req.cookies["login_failed"]);
     res.render('index.ejs', {action: "login", login_failed: req.cookies["login_failed"], title:"Yes", have_login:false, username:"Guest"},);
 });
 
 router.post('/', (req, res) => {
-
-    var login_status = -1;
 
     let db = new sqlite3.Database('app.db', error => {
         if (error) {

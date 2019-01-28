@@ -9,7 +9,7 @@ router.get('/', initMiddleware.initialize, function (req, res, next) {
 
     console.log(res.locals);
     if (res.locals.first_time) {
-        return res.redirect("/settings");
+        return res.redirect("/settings?first_time=1");
     }
     /*
     // let login = true;

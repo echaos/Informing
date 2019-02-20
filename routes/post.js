@@ -8,11 +8,11 @@ router.get("/post/:ID", initMiddleware.initialize, (req, res) => {
 
     res.render("index.ejs", {
         action:"post",
+        post_action:"show",
         title:"Informing",
-        have_login:true,
+        have_login:req.session.have_login,
         username:"Default",
         post: res.locals.post,
-
     });
 });
 

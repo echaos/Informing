@@ -19,6 +19,26 @@
             }
             return true;
         }
+
+        function showAllMessages()
+        {
+            $('.label-primary').parent().show();
+            $('.label-info').parent().show();
+            $('.label-danger').parent().show();
+        }
+
+        function showEvents() {
+            $('.label-primary').parent().hide();
+            $('.label-info').parent().show();
+            $('.label-danger').parent().hide();
+        }
+
+        function showDeadlines() {
+            $('.label-primary').parent().hide();
+            $('.label-info').parent().hide();
+            $('.label-danger').parent().show();
+        }
+
     </script>
 </head>
 
@@ -39,45 +59,48 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Media <span
-                                class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Files</a></li>
-                        <li><a href="#">Images</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Media <span-->
+                                <!--class="caret"></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Files</a></li>-->
+                        <!--<li><a href="#">Images</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Contact</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
             <!--<form class="navbar-form navbar-left">-->
-                <!--<div class="form-group">-->
-                    <!--<input type="text" class="form-control" placeholder="Search">-->
-                <!--</div>-->
-                <!--<button type="submit" class="btn btn-default">Submit</button>-->
+            <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" placeholder="Search">-->
+            <!--</div>-->
+            <!--<button type="submit" class="btn btn-default">Submit</button>-->
             <!--</form>-->
 
 
-                <ul class="nav navbar-nav navbar-right">
-                    <% if (have_login) { %>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                               role="button">Hello <%= username %><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <button class="btn btn-link" type="submit" name="setting" value="true">Setting
+            <ul class="nav navbar-nav navbar-right">
+                <% if (have_login) { %>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button">Hello <%= username %><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="btn btn-link" type="submit" name="setting" value="true">Setting
+                                </button>
+                            <li>
+                                <form class="'navbar-form" action="/logout">
+                                    <button class="btn btn-link" type="submit" name="logout" value="true">
+                                        Logout
                                     </button>
-                                <li>
-                                    <button class="btn btn-link" type="submit" name="logout" value="true">Logout
-                                    </button>
-                                </li>
-                            </ul>
-                        </li>
-                    <% } else { %>
-                        <li><a href="/login">Login</a></li>
-                    <% } %>
-                </ul>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                <% } %>
+            </ul>
             <form class="navbar-form navbar-right" action="/new">
                 <button type="submit" class="btn btn-default">New</button>
             </form>
@@ -91,15 +114,15 @@
         <div class="slices">
             <div class="slice" id="fade1">
                 <img src="/images/lake-irene-1679708_1920-e1520033192433.jpg" class="slice_image"/>
-                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.1</p>
+                <p class="slice_text">Sample 1</p>
             </div>
             <div class="slice fading" id="fade2">
                 <img src="/images/landscape-photography-02.jpg" class="slice_image"/>
-                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.2</p>
+                <p class="slice_text">Sample 2</p>
             </div>
             <div class="slice fading" id="fade3">
                 <img src="/images/photo-1532274402911-5a369e4c4bb5.jpg" class="slice_image"/>
-                <p class="slice_text">Favere grauiter ducunt ad castus tumultumque.3</p>
+                <p class="slice_text">Sample 3</p>
             </div>
         </div>
         <a class="prev_button" onclick="nextSlice(-1)">&#10094;</a>
@@ -110,28 +133,28 @@
     <div class="content_container">
         <div class="well well-lg well_container ">
             <div class="notification_buttons">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" onclick="showAllMessages()">
                     All messages <span class="badge"><%= all_n %></span>
                 </button>
                 <% if (event_n > 0) { %>
-                    <button class="btn btn-danger" type="button">
-                        Deadlines <span class="badge"><%= event_n %></span>
+                    <button class="btn btn-warning" type="button" onclick="showEvents()">
+                        Events <span class="badge"><%= event_n %></span>
                     </button>
                 <% } %>
                 <% if (deadline_n > 0) { %>
-                    <button class="btn btn-warning" type="button">
-                        Events <span class="badge"><%= deadline_n %></span>
+                    <button class="btn btn-danger" type="button" onclick="showDeadlines()">
+                        Deadlines <span class="badge"><%= deadline_n %></span>
                     </button>
                 <% } %>
             </div>
             <!--<div class="input-group m_input">-->
-                <!--<span class="input-group-addon">Search:</span>-->
-                <!--<input type="text" class="form-control" placeholder="Keyword">-->
+            <!--<span class="input-group-addon">Search:</span>-->
+            <!--<input type="text" class="form-control" placeholder="Keyword">-->
             <!--</div>-->
             <hr>
             <div class="list-group list">
                 <% post_list.forEach(function (post) { %>
-                    <button type="button" class="list-group-item">
+                    <button type="button" class="list-group-item" onclick="location.href='/post/<%=post.post_id%>'">
                         <span class="label <%= PRIORITY_CLASS[post.post_priority] %>"><%= PRIORITY_NAME[post.post_priority] %></span> <%= post.post_title %>
                     </button>
                 <% }); %>
@@ -148,7 +171,7 @@
     <div class="content_container">
         <div class="well well-lg well_container_2 ">
             <h1>Please Login</h1>
-            <% if (login_failed === "true") { %>
+            <% if (login_failed) { %>
                 <div class="alert alert-danger">Incorrect Account Name or Password!</div>
             <% } %>
             <form method="POST">
@@ -198,45 +221,46 @@
 <% } %>
 
 <% if (action === "post") { %>
-<div class="content_container">
-    <div class="well well-lg well_container_2 ">
-        <h1 class="page-header"><%= post.post_title %></h1>
-        <%= post.post_content %>
+    <% if (post_action === "new") { %>
+        <div class="content_container">
+            <div class="well well-lg well_container_4">
+                <form class="form-group" method="post">
 
-    </div>
-</div>
-<% } %>
+                    <input type="hidden" value="<%#post_action%>" name="post_action">
 
-<% if (action === "post") { %>
-    <div class="content_container">
-        <div class="well well-lg well_container_4">
-            <form class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="" required>
+                    <br>
+                    <label for="content">Content:</label>
+                    <textarea class="form-control" rows="20" name="content" id="content"
+                              placeholder="Insert your text here." required></textarea>
 
-                <input type="hidden" value="<%#post_action%>" name="post_action">
+                    <br>
 
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" name="content" id="title" placeholder="" required>
-                <br>
-                <label for="content">Content:</label>
-                <textarea class="form-control" rows="20" name="content" id="content" placeholder="Insert your text here." required></textarea>
+                    <label for="type">Select post type:</label>
+                    <select class="form-control" id="type" name="post_priority">
+                        <option>Normal</option>
+                        <option>Events</option>
+                        <option>Deadlines</option>
+                    </select>
 
-                <br>
+                    <hr>
 
-                <label for="type">Select post type:</label>
-                <select class="form-control" id="type" name="post_priority">
-                    <option>Normal</option>
-                    <option>Events</option>
-                    <option>Deadlines</option>
-                </select>
-
-                <hr>
-
-                <div class="input-group">
-                    <button type="submit" class="btn btn-default">Confirm</button>
-                </div>
-            </form>
+                    <div class="input-group">
+                        <button type="submit" class="btn btn-default">Confirm</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    <% } %>
+    <% if (post_action === "show"){ %>
+        <div class="content_container">
+            <div class="well well-lg well_container_2 ">
+                <h1 class="page-header"><%= post.post_title %></h1>
+                <%= post.post_content %>
+            </div>
+        </div>
+    <% } %>
 <% } %>
 
 <div class="container container-fluid footer">

@@ -9,35 +9,23 @@ router.get('/', initMiddleware.initialize, function (req, res, next) {
 
     console.log(res.locals);
     if (res.locals.first_time) {
-        return res.redirect("/settings?first_time=1");
+        return res.redirect("/settings");
     }
-    /*
-    // let login = true;
-    // let username;
-    //
-    // if (req.cookies["username"]) {
-    //     username = req.cookies["username"];
-    //     console.log(username);
-    // }
-    //
-    // if (req.cookies["login"] && req.cookies["login"] === "false") {
-    //     login = false;
-    // }
-    // else {
-    //     res.cookie('login', 'true', {maxAge: 9000000});
-    // }
-    */
+
+    console.log(req.session.user_name);
+
 
     let event_n = res.locals.post_list.filter(post => post.post_priority === 1).length;
     let deadline_n = res.locals.post_list.filter(post => post.post_priority === 2).length;
     let all_n = res.locals.post_list.length;
 
     res.locals.db.close();
+
     res.render('index.ejs', {
         action: "homepage",
         title: res.locals.app_name,
-        have_login: "true",
-        username: "Yes",
+        have_login: req.session.have_login,
+        username: req.session.user_name,
         post_list: res.locals.post_list,
         all_n: all_n,
         event_n: event_n,
@@ -48,10 +36,6 @@ router.get('/', initMiddleware.initialize, function (req, res, next) {
 });
 
 router.post('/', (req, res) => {
-    if (req.body.logout === "true") {
-        res.cookie("login", "true", {maxAge: 9000000});
-        res.redirect("/");
-    }
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
+// const passport = require('passport');
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -9,7 +10,14 @@ router.get('/', (req, res) => {
         return res.redirect("/settings");
     }
 
-    console.log(req.cookies["login_failed"]);
+    if (req.session.have_login)
+    {
+        res.redirect("/");
+    }
+
+    console.log('Inside the homepage callback function');
+    console.log(req.sessionID);
+
     res.render('index.ejs', {action: "login", login_failed: req.cookies["login_failed"], title:"Yes", have_login:false, username:"Guest"},);
 });
 
@@ -29,13 +37,19 @@ router.post('/', (req, res) => {
 
         rows.forEach(row => {
             if (row.user_name === req.body.username && row.user_password === req.body.password) {
-                res.cookie("login", "false", {maxAge: 9000000});
-                res.cookie("username", row.username, {maxAge: 9000000});
-                res.cookie("login_failed", "false", {maxAge: 9000000});
-                res.redirect("/");
+                req.session.regenerate(err=>{
+                    if (err)
+                    {
+                        res.redirect("/login");
+                    }
+
+                    req.session.user_name = row.user_name;
+                    req.session.have_login = true;
+                    res.redirect("/");
+                })
             } else {
-                res.cookie("login_failed", "true", {maxAge: 1800});
-                res.redirect("/login");
+                res.cookie("login_failed", "true", {maxAge:5*1000});
+                res.redirect("/login", );
             }
         })
     });

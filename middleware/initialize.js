@@ -64,7 +64,6 @@ function getPost(req, res) {
                 if (err) {
                     resolve(false);
                 }
-                console.log(row);
                 res.locals.post = row;
                 resolve(true);
             });
@@ -78,22 +77,31 @@ function createAppSettingTable(req, res) {
         //If it is the first time
         if (res.locals.first_time) {
             res.locals.db.serialize(() => {
+                console.log("First time");
                 console.log(req.body);
                 //Create a table for storing website data
                 res.locals.db.run("CREATE TABLE `app_settings` (`app_name` TEXT NOT NULL DEFAULT 'App_name');");
                 res.locals.db.run("INSERT INTO app_settings(app_name) VALUES ('" + req.body.site_name + "');");
 
                 //Create a table for storing user data
-                res.locals.db.run("CREATE TABLE `users` ( `user_name` TEXT NOT NULL UNIQUE, `user_password` TEXT NOT NULL, `user_permission` INTEGER NOT NULL );");
-                let combined_text = "'" + req.body.username + "','" + req.body.password + "', 2";
-                res.locals.db.run("INSERT INTO users(user_name, user_password, user_permission) VALUES (" + combined_text + ");");
+                res.locals.db.run("CREATE TABLE `users` ( `user_name` TEXT NOT NULL UNIQUE, `user_password` TEXT NOT NULL);");
+                let combined_text = "'" + req.body.username + "','" + req.body.password + "'";
+                res.locals.db.run("INSERT INTO users(user_name, user_password) VALUES (" + combined_text + ");");
 
                 let date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
                 res.locals.db.run("CREATE TABLE `posts` ( `post_id` INTEGER NOT NULL UNIQUE, `post_title` TEXT NOT NULL, `post_date` TEXT NOT NULL, `post_content` TEXT NOT NULL, `post_priority` INTEGER NOT NULL, PRIMARY KEY(`post_id`) );")
                 res.locals.db.run("INSERT INTO\tposts(post_id, post_title, post_date, post_content, post_priority) VALUES(0, 'Your first title', '" + date + "', 'Content', 0);")
+                resolve(true);
             });
+        } else if (req.originalUrl === "/settings") {
+            res.locals.db.serialize(() => {
+                res.locals.db.run("UPDATE app_settings SET app_name='" + req.body.site_name + "'");
+                res.locals.db.run("UPDATE users SET user_name='" + req.body.username + "', user_password='" + req.body.password + "'");
+                resolve(true);
+            });
+        } else {
+            resolve(true);
         }
-        resolve(true);
     })
 }
 
@@ -122,11 +130,13 @@ function initialize(req, res, next) {
         verifyDB(req, res).then(() => {
             if (res.locals.first_time && req.originalUrl !== "/settings") {
                 next();
-            }else if(!res.locals.first_time && req.originalUrl === "/settings" && !req.session.have_login) {
+            } else if (!res.locals.first_time && req.originalUrl === "/settings" && !req.session.have_login) {
                 res.redirect("/login");
             } else {
                 createAppSettingTable(req, res).then(() => {
+                    console.log("Extract App Settings");
                     extractAppSettings(res).then(() => {
+                        console.log("Get Post");
                         getPosts(req, res).then(() => {
                             getPost(req, res).then(() => {
                                 next();

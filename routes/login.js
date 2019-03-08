@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
-// const passport = require('passport');
+const initMiddleware = require('../middleware/initialize');
 
 /* GET users listing. */
-router.get('/', (req, res) => {
+router.get('/',initMiddleware.initialize, (req, res) => {
 
     if (res.locals.first_time) {
         return res.redirect("/settings");
@@ -12,13 +12,10 @@ router.get('/', (req, res) => {
 
     if (req.session.have_login)
     {
-        res.redirect("/");
+       return res.redirect("/");
     }
 
-    console.log('Inside the homepage callback function');
-    console.log(req.sessionID);
-
-    res.render('index.ejs', {action: "login", login_failed: req.cookies["login_failed"], title:"Yes", have_login:false, username:"Guest"},);
+    return res.render('index.ejs', {action: "login", login_failed: req.cookies["login_failed"], title:"Yes", have_login:false, username:"Guest"},);
 });
 
 router.post('/', (req, res) => {

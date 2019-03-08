@@ -26,7 +26,12 @@ router.post('/', initMiddleware.initialize, (req, res) => {
     let content = req.body.content;
     let post_priority = 0;
 
-    let post_id = res.locals.post_list[res.locals.post_list.length-1].post_id+1;
+    let post_id = 0;
+
+    if (res.locals.post_list.length !== 0)
+    {
+        post_id = res.locals.post_list[res.locals.post_list.length-1].post_id+1;
+    }
 
     if (req.body.post_priority === "Events")
     {
@@ -41,7 +46,6 @@ router.post('/', initMiddleware.initialize, (req, res) => {
     if (title && content)
     {
         res.locals.db.serialize(()=>{
-            console.log("SQL HERE");
             let date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
             res.locals.db.run("INSERT INTO\tposts(post_id, post_title, post_date, post_content, post_priority) VALUES("+post_id+", '"+title+"', '" + date + "', '"+content+"', "+post_priority+");")
             res.redirect("/post/"+post_id);

@@ -12,9 +12,6 @@ router.get('/', initMiddleware.initialize, function (req, res, next) {
         return res.redirect("/settings");
     }
 
-    console.log(req.session.user_name);
-
-
     let event_n = res.locals.post_list.filter(post => post.post_priority === 1).length;
     let deadline_n = res.locals.post_list.filter(post => post.post_priority === 2).length;
     let all_n = res.locals.post_list.length;
